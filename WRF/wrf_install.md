@@ -8,13 +8,13 @@ Once you've logged into Caviness, the first step is to set your workgroup. Remem
 
 `workgroup -g regc`
 
-## Set Your Environment Variables
+## Setting Up Your Environment 
 
 The following commands will set environment variables that WRF and the related libraries will use to find their installation locations and compiler configurations. These are only set for the current session. If you exit your workgrouop and/or logout of Caviness before you complete the install, you'll need to set these again.
 
 If you set them before changing your workgroup, which starts a new shell session, you'll have to set them again, so be sure to change your workgorup immediately after logging in.
 
-## Caviness OpenMPI
+### Caviness OpenMPI
 
 You'll need to make sure you activate the OpenMPI package on Caviness before you begin, otherwise you will not be able to compile and/or run WRF.
 
