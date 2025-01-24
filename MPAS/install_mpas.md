@@ -1,5 +1,10 @@
 # MPAS Install on Caviness
 
+# Table of Contents
+1. [Preliminaries](#preliminaries)
+2. [Setting Up Your Environment](#setting-up-your-environment)
+ 
+
 This document will walk you through downloading and compiling NCAR/UCAR MPAS (Model for Prediction Across Scales) on UD's Caviness cluster.
 
 MPAS Documentation is available from the [MPAS Homepage](https://mpas-dev.github.io)
@@ -34,7 +39,7 @@ rySharedLibraries
  +--lib  
  |  
  +--inc  
- |  
+ | 
  +--src  
 
 As we build each library, the corresponding files will be installed into the above folders. We'll add these to the proper environment variables so the compilers can find these libraries when building MPAS.
