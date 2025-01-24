@@ -38,17 +38,19 @@ rySharedLibraries
  |  
  +--lib  
  |  
- +--inc  
- | 
+ +--include  
+ |   
  +--src  
+ |  
+ +--share  
 
 As we build each library, the corresponding files will be installed into the above folders. We'll add these to the proper environment variables so the compilers can find these libraries when building MPAS.
 
 This will create the environment variables for the library directories and add them to our PATH and LD_LIBRARY_PATH.
 
 ```bash
-export LIBBASE=/work/regc/rySharedLibraries"
-export LIBSRC=/work/regc/rySharedLibraries/src"
+export LIBBASE=/work/regc/rySharedLibraries
+export LIBSRC=/work/regc/rySharedLibraries/src
 export PATH=${LIBBASE}/bin:$PATH
 export LD_LIBRARY_PATH=${LIBBASE}/lib:$LD_LIBRARY_PATH
 ```
@@ -68,6 +70,8 @@ export LDFLAGS="-L${LIBBASE}/lib"
 export MPICC="mpicc"
 export MPICXX="mpicxx"
 export MPIFC="mpifort"
+export MPIF77="mpifort"
+export MPIF90="mpifort"
 ```
 
 MPAS requires NetCDF, Parallel-NetCDF, and ParallelIO (PIO). Tested versions of the libraries are:
@@ -96,6 +100,7 @@ wget https://www2.mmm.ucar.edu/people/duda/files/mpas/sources/hdf5-1.10.5.tar.bz
 wget https://github.com/Unidata/netcdf-c/archive/v4.7.2.tar.gz
 wget https://github.com/Unidata/netcdf-fortran/archive/v4.5.2.tar.gz
 wget https://www2.mmm.ucar.edu/wrf/OnLineTutorial/compile_tutorial/tar_files/libpng-1.2.50.tar.gz
+wget https://parallel-netcdf.github.io/Release/pnetcdf-1.12.2.tar.gz
 ```
 
 Once you've downloaded or copied the library files to your src folder, you can expand the archive files.
@@ -108,5 +113,75 @@ Parallel IO will need to be downloaded from Github:
 PIO Download
 `git clone https://github.com/NCAR/ParallelIO.git`
 
+### ZLib Build
+
+```bash
+cd $LIBBASE/src/zlib-1.2.11/
+./configure --prefix=${LIBBASE}
+make
+make install
+cd ..
+```
+
+### HDF5 Build
+
+```bash
+cd $LIBBASE/src/hdf5-1.10.5/
+export FC=$MPIFC
+export CC=$MPICC
+export CXX=$MPICXX
+./configure --prefix=${LIBBASE} --enable-parallel --with-zlib=${LIBBASE} --enable-fortran --enable-shared
+make
+make install
+
+# now undo the exports
+export FC=ifort
+export CC=icc
+export CXX=icpc
+```
+
+### Parallel-netCDF
+
+```console
+cd $LIBBASE/src/pnetcdf-1.12.2/
+./configure --prefix=${LIBBASE}
+make
+make install
+```
+
+
+### netCDF-C
+
+```console
+cd $LIBBASE/src/netcdf-c-4.7.2
+export CPPFLAGS="-I${LIBBASE}/include"
+export LDFLAGS="-L${LIBBASE}/lib"
+export LIBS="-lhdf5_hl -lhdf5 -lz -ldl"
+export CC=$MPICC
+./configure --prefix=${LIBBASE} --disable-dap --enable-netcdf4 --enable-pnetcdf --enable-cdf5 --enable-shared
+make
+make install
+
+# undo the exports
+export CC=icc
+```
+
+
+### netCDF-Fortran
+
+```console
+export FC=$MPIFC
+export F77=$MPIF77
+export LIBS="-lnetcdf -lpnetcdf ${LIBS}"
+./configure --prefix=${LIBBASE}
+make
+make install
+
+#undo export
+export FC=ifort
+export F77=ifort
+```
+
+### PIO
 
 
