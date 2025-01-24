@@ -6,9 +6,9 @@ This repository is maintained by the [Clouds, Wind, and Climate Lab](https://sit
 
 ## Table of Contents
 
-[1. General LINUX Reference](LINUX/README.md)
-[2. MPAS Documentation](MPAS/README.md)
-[3. WRF Documentation](WRF/README.md)
-[4. Python Documentation](PYTHON/README.md)
+- [1. General LINUX Reference](LINUX/README.md)
+- [2. MPAS Documentation](MPAS/README.md)
+- [3. WRF Documentation](WRF/README.md)
+- [4. Python Documentation](PYTHON/README.md)
 
 
