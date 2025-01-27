@@ -158,7 +158,7 @@ export CPPFLAGS="-I${LIBBASE}/include"
 export LDFLAGS="-L${LIBBASE}/lib"
 export LIBS="-lhdf5_hl -lhdf5 -lz -ldl"
 export CC=$MPICC
-./configure --prefix=${LIBBASE} --disable-dap --enable-netcdf4 --enable-pnetcdf --enable-cdf5 --enable-shared
+./configure --prefix=${LIBBASE} --disable-dap --enable-netcdf4 --enable-pnetcdf --enable-cdf5 --disable-shared
 make
 make install
 
@@ -173,7 +173,7 @@ export CC=icc
 export FC=$MPIFC
 export F77=$MPIF77
 export LIBS="-lnetcdf -lpnetcdf ${LIBS}"
-./configure --prefix=${LIBBASE}
+./configure --prefix=${LIBBASE} --disable-shared
 make
 make install
 
