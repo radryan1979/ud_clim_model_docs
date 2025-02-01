@@ -51,7 +51,7 @@ This will create the environment variables for the library directories and add t
 ```bash
 export LIBBASE=/work/regc/rySharedLibraries
 export LIBSRC=/work/regc/rySharedLibraries/src
-export PATH=${LIBBASE}/bin:$PATH
+export PATH=${LIBBASE}/bin:${LIBBASE}/lib:$PATH
 export LD_LIBRARY_PATH=${LIBBASE}/lib:$LD_LIBRARY_PATH
 ```
 
@@ -113,6 +113,10 @@ Parallel IO will need to be downloaded from Github:
 PIO Download
 `git clone https://github.com/NCAR/ParallelIO.git`
 
+Add instructions and links to go to the release pages for each of these libraries on GitHub to download.
+
+
+
 ### ZLib Build
 
 ```bash
@@ -130,7 +134,7 @@ cd $LIBBASE/src/hdf5-1.10.5/
 export FC=$MPIFC
 export CC=$MPICC
 export CXX=$MPICXX
-./configure --prefix=${LIBBASE} --enable-parallel --with-zlib=${LIBBASE} --enable-fortran --enable-shared
+./configure --prefix=${LIBBASE} --enable-parallel --with-zlib=${LIBBASE} --enable-fortran --disable-shared
 make
 make install
 
@@ -144,7 +148,7 @@ export CXX=icpc
 
 ```console
 cd $LIBBASE/src/pnetcdf-1.12.2/
-./configure --prefix=${LIBBASE}
+./configure --prefix=${LIBBASE} --disable-shared
 make
 make install
 ```
@@ -163,25 +167,36 @@ make
 make install
 
 # undo the exports
-export CC=icc
 ```
 
 
 ### netCDF-Fortran
 
+Make sure the CC variable is still set to $MPICC, otherwise the linking of the NetCDF C libraries will not work.
+
 ```console
 export FC=$MPIFC
 export F77=$MPIF77
 export LIBS="-lnetcdf -lpnetcdf ${LIBS}"
-./configure --prefix=${LIBBASE} --disable-shared
+LDFLAGS="$(nc-config --libs --static)" ./configure --prefix=${LIBBASE} --disable-shared
 make
 make install
 
 #undo export
 export FC=ifort
 export F77=ifort
+export CC=icc
 ```
 
 ### PIO
 
 
+```console
+LDFLAGS="(nc-config --libs --static)" ./configure --prefix=${LIBBASE} --enable-fortran --disable-shared
+make
+make install
+```
+
+
+notes from forum
+make pgi CORE=atmosphere PRECISION=single PIO=/usr/local USE_PIO2=true 'LDFLAGS_OPT=-O3
