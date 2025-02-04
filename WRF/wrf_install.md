@@ -210,6 +210,20 @@ Your results should look like this:
 
 # Install WRF
 
+You can obtain the WRF source code from the GitHub repository. The best option is to obtain a tar file from the releaes page:
+[WRF Releases](https://github.com/wrf-model/WRF/releases)
+
+You can use `wget` to download a give release following the URL below for the version you'd like.
+
+```bash
+cd $WRF_SRC
+mkdir WRF
+cd WRF
+wget https://github.com/wrf-model/WRF/releases/download/v4.5.2/v4.5.2.tar.gz
+```
+
+The other approach is to checkout the repository, and tag the branch you want. This option is for more advanced users and is not recommended for a stable production build.
+
 ```bash
 cd $WRF_SRC
 git clone --recurse-submodules https://github.com/wrf-model/WRF
