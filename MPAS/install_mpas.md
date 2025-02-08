@@ -28,7 +28,7 @@ MPAS requires C and Fortran compilers, specifically a fortran compiler that will
 You will need make sure you always load the OpenMPI valet package either during the building of MPAS and then whenever you run MPAS. We'll add this to the environment setup script we create below.
 
 To run the OpenMPI valet package:
-`vpkg_require openmpi/4.0.2:intel`
+`vpkg_require openmpi/4.1.4:intel-oneapi-2022`
 
 Next we want to set some directories for our libraries to install into and for the compilers to find the necessary include and library files. In your working directory create a folder for all of your libraries, I called mine rySharedLibraries. In that folder, create the following folders structure: 
 
@@ -67,16 +67,16 @@ export FC=ifort
 export FCFLAGS="-I${LIBBASE}/inc -xHost" 
 export F77="$FC"
 export LDFLAGS="-L${LIBBASE}/lib"
-export MPICC="mpicc"
-export MPICXX="mpicxx"
-export MPIFC="mpifort"
-export MPIF77="mpifort"
-export MPIF90="mpifort"
+export MPICC="mpiicc"
+export MPICXX="mpiicpc"
+export MPIFC="mpiifort"
+export MPIF77="mpiifort"
+export MPIF90="mpiifort"
 ```
 
 MPAS requires NetCDF, Parallel-NetCDF, and ParallelIO (PIO). Tested versions of the libraries are:
-- ZLib 1.2.11
-- HDF5 1.10.5
+- ZLib 1.3.1
+- HDF5 1.13.0
 - NetCDF-C 4.4.x
 - NetFortran 4.4.x
 - Parallel-NetCDF 1.8.x
@@ -95,8 +95,8 @@ To download the necessary compressed files from Duda's website, follow these ste
 
 ```bash
 cd $LIBBASE/src
-wget https://www2.mmm.ucar.edu/people/duda/files/mpas/sources/zlib-1.2.11.tar.gz
-wget https://www2.mmm.ucar.edu/people/duda/files/mpas/sources/hdf5-1.10.5.tar.bz2
+wget https://www2.mmm.ucar.edu/people/duda/files/mpas/sources/zlib-1.3.1.tar.gz
+wget https://www2.mmm.ucar.edu/people/duda/files/mpas/sources/hdf5-1.13.0.tar.bz2
 wget https://github.com/Unidata/netcdf-c/archive/v4.7.2.tar.gz
 wget https://github.com/Unidata/netcdf-fortran/archive/v4.5.2.tar.gz
 wget https://www2.mmm.ucar.edu/wrf/OnLineTutorial/compile_tutorial/tar_files/libpng-1.2.50.tar.gz
@@ -120,7 +120,7 @@ Add instructions and links to go to the release pages for each of these librarie
 ### ZLib Build
 
 ```bash
-cd $LIBBASE/src/zlib-1.2.11/
+cd $LIBBASE/src/zlib-1.3.1/
 ./configure --prefix=${LIBBASE}
 make
 make install
@@ -130,7 +130,7 @@ cd ..
 ### HDF5 Build
 
 ```bash
-cd $LIBBASE/src/hdf5-1.10.5/
+cd $LIBBASE/src/hdf5-1.13.0/
 export FC=$MPIFC
 export CC=$MPICC
 export CXX=$MPICXX
