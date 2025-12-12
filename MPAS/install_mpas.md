@@ -137,12 +137,14 @@ export CXX=$MPICXX
 ./configure --prefix=${LIBBASE} --enable-parallel --with-zlib=${LIBBASE} --enable-fortran --disable-shared
 make
 make install
+```
 
+# might not need to undo them
 # now undo the exports
 export FC=ifort
 export CC=icc
 export CXX=icpc
-```
+
 
 ### Parallel-netCDF
 

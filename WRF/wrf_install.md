@@ -232,6 +232,8 @@ git tag -l ##lists the releases
 git checkout tags/v#.#.#
 ```
 
+**need to add env variable exports here**
+
 ## Now build WRF serial
 
 Note - if you see errors during the compile, recompile without the `-j 4` option, as multiprocessor compiling may cause issues.
