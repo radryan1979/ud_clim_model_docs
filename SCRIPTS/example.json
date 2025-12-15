@@ -1,0 +1,9 @@
+{
+    "download_folder": "/Volumes/Research/WRF_data/",
+    "area": [-60,-180,-90,180],
+    "data_format": "grib",
+    "year": "2019",
+    "month": ["01","02"],
+    "day": ["01","02"],
+    "time": ["00:00","03:00"]
+}
