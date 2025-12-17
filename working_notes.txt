@@ -1,0 +1,27 @@
+WPS Folder needs:
+
+geogrid.tbl
+link_grib.csh
+metgrid.tbl
+metmpi.qs
+namelist.wps
+Vtable
+wps.qs
+
+
+WRF Job Folder needs:
+GENPARM.tbl
+HLC.tbl
+LANDUSE.tbl
+freezeH20.dat
+MPTABLE.TBL
+namelist.input
+wrfmpi.qs
+RRTM_DATA
+RRTM_DATA_DBLE
+SOILPARM.TBL
+URBPARM.TBL
+URBPARM_UZE.TBL
+VEGPARM.tbl
+
+or just run the makefile??

@@ -233,6 +233,7 @@ git checkout tags/v#.#.#
 ```
 
 **need to add env variable exports here**
+not sure what though?
 
 ## Now build WRF serial
 
@@ -243,7 +244,7 @@ For configure choose option **64** and nesting **0**
 ```bash
 ./configure
 ./compile -j 4 em_real
-makedir -p "$WRF_BIN"
+mkdir -p "$WRF_BIN"
 install --target-directory="$WRF_BIN" --mode=0775 main/*.exe
 ```
 
@@ -258,7 +259,7 @@ For configure choose option **66** and nesting **1**
 
 **Patch the config file for MPI**
 
-◊
+If this gives an error, then you may have to update the configure file manually.
 
 ```bash
 patch -p1 <<EOT
@@ -327,8 +328,8 @@ Choose option **19**
 ./configure
 ./compile
 for exe in *.exe; do
-**Install each exe to WRF_BIN with the prefix "mpi_" on it**
-**to differentiate from the serial variants:**
+#Install each exe to WRF_BIN with the prefix "mpi_" on it
+#to differentiate from the serial variants:
   install --mode=0775 "$exe" "${WRF_BIN}/mpi_${exe}"
 done
 ```
