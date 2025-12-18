@@ -231,3 +231,35 @@ for exe in main/*.exe; do
   install --mode=0775 "$exe" "${WRF_BIN}/mpi_${WRF_ROOT}"
 done
 ```
+
+For PolarWRF 4.5 - real.exe will fail on compile because of newer compilers and issues with hailcast among others.
+
+Build regular WRF with ./compile em_real
+
+Then, run the script to copy the polar WRF source files
+
+Run clean -a
+Run configure
+Run compile wrf
+
+This will skip the compilation of real.exe 
+
+Other option is fixing the hailcast line in the Registry - trying that now
+
+Patching the Registry file to fix the hailcast config which will prevent compiler errors on em_real target
+
+```bash
+patch -p1 <<EOT
+--- A/Registry.EM_COMMON.PWRF4.5.0
++++ B/Registry.EM_COMMON.PWRF4.5.0
+@@ -3275,7 +3275,7 @@
+ state    real   HAILCAST_DIAM_STD   ij   misc        1         -      -          "HAILCAST_DIAM_STD"   "WRF-HAILCAST Stand. Dev. Hail Diameter" "mm"
+ state    real   HAILCAST_WUP_MASK   ij     misc        1         -      r        "HAILCAST_WUP_MASK"           "Updraft mask, 1 if > 10m/s"                             ""
+ state    real   HAILCAST_WDUR       ij     misc        1         -      r        "HAILCAST_WDUR"               "Updraft duration"                                       "sec"
+-state    real   haildtacttime        -       -         -         -      r        "haildtacttime"              "HAILDTACTTIME"         "HAILCAST ACTIVATION TIME in s"
++state    real   haildtacttime       ij     misc        1         -      r        "haildtacttime"              "HAILDTACTTIME"         "HAILCAST ACTIVATION TIME in s"
+ 
+ 
+ package   hailcast  hailcast_opt==1        -                    state:hailcast_diam_max,hailcast_diam_mean,hailcast_diam_std,hailcast_dhail1,hailcast_dhail2,hailcast_dhail3,hailcast_dhail4,hailcast_dhail5
+EOT
+```

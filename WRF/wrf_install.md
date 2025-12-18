@@ -286,7 +286,10 @@ patch -p1 <<EOT
  TRADFLAG        =      -traditional-cpp
  CPP             =      /lib/cpp -P -nostdinc
 EOT
+```
+Once the patch is applied to the configure.wrf file, you can compile.
 
+```bash
 ./compile -j 4 em_real
 ```
 
