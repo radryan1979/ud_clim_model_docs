@@ -74,7 +74,7 @@ def get_pres_data(data,client):
             "download_format": "unarchived",
             "area": data["area"]
             }       
-    filename = f"pres_data_{data["year"]}_{data["month"]}.grib"
+    filename = f"pres_data_{data["year"]}_{data["month"][0]}_{data["day"][0]}.grib"
     filename = os.path.join(data["download_folder"],filename)
     
     client.retrieve(collection_id, request, target=filename)    
@@ -124,7 +124,7 @@ def get_surf_data(data,client):
             "area": data["area"]
             }       
     
-    filename = f"surf_data_{data["year"]}_{data["month"]}.grib"
+    filename = f"surf_data_{data["year"]}_{data["month"][0]}_{data["day"][0]}.grib"
     filename = os.path.join(data["download_folder"],filename)
         
     client.retrieve(collection_id, request, target=filename)

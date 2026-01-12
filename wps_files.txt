@@ -1,0 +1,10 @@
+
+lrwxrwxrwx 1 reagan everyone   55 Dec 20 12:04 GEOGRID.TBL -> /work/regc/polarWRF/pwrf451/src/WPS/geogrid/GEOGRID.TBL
+-rwxr-xr-x 1 reagan everyone 1.3K Dec 20 12:03 link_grib.csh
+-rw-r--r-- 1 reagan everyone 1.6K Dec 20 12:01 Makefile
+lrwxrwxrwx 1 reagan everyone   55 Dec 20 12:04 METGRID.TBL -> /work/regc/polarWRF/pwrf451/src/WPS/metgrid/METGRID.TBL
+-rwxr-xr-x 1 reagan everyone 9.4K Dec 20 09:31 metmpi.qs
+-rw-r--r-- 1 reagan regc      936 Dec 23 07:23 namelist.wps
+-rwxr-xr-x 1 reagan everyone 9.4K Dec 20 09:31 ungrib.qs
+-rw-r--r-- 1 reagan everyone 3.6K Dec 20 12:03 Vtable
+-rwxr-xr-x 1 reagan everyone 9.4K Dec 20 09:31 wpsmpi.qs

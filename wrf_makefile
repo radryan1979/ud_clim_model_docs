@@ -1,0 +1,111 @@
+##
+## Copy the necessary TBL files for geogrid/metgrid/ungrib/link_grib.csh into this
+## working directory.
+##
+
+# These are the symbolic links we need set:
+TARGETS		= GENPARM.TBL  HLC.TBL  LANDUSE.TBL  MPTABLE.TBL  SOILPARM.TBL  URBPARM.TBL  URBPARM_UZE.TBL  VEGPARM.TBL ozone.formatted  ozone_lat.formatted  ozone_plev.formatted RRTM_DATA  RRTM_DATA_DBL  RRTMG_LW_DATA  RRTMG_LW_DATA_DBL  RRTMG_SW_DATA  RRTMG_SW_DATA_DBL RRTMG_LW_DATA RRTMG_LW_DATA_DBL RRTMG_SW_DATA RRTMG_SW_DATA_DBL CAMtr_volume_mixing_ratio CAMtr_volume_mixing_ratio.SSP245 p3_lookupTable_1.dat-v5.4_2momI p3_lookupTable_1.dat-v5.4_3momI p3_lookupTable_2.dat-v5.3
+
+# This is the extension on the original GEOGRID.<EXT> file we want
+# # to copy; you can set in the environment or on the "make" command
+# # line, too, e.g. "make GEOGRID_EXT=TBL"
+ GEOGRID_EXT     ?= TBL
+
+
+##
+## The rest of this should not need to be touched
+##
+
+# Autodiscover the install prefix if not set:
+ifndef WRF_PREFIX
+    WRF_PREFIX	= $(shell realpath $(join $(dir $(shell which real.exe)),".."))
+endif
+
+.PHONY: all clean
+
+all: $(TARGETS)
+
+clean:
+	rm -f $(TARGETS)
+
+GENPARM.TBL: $(WRF_PREFIX)/src/WRF/run/GENPARM.TBL
+	cp $(WRF_PREFIX)/src/WRF/run/GENPARM.TBL GENPARM.TBL
+
+HLC.TBL: $(WRF_PREFIX)/src/WRF/run/HLC.TBL
+	cp $(WRF_PREFIX)/src/WRF/run/HLC.TBL HLC.TBL
+
+LANDUSE.TBL: $(WRF_PREFIX)/src/WRF/run/LANDUSE.TBL
+	cp $(WRF_PREFIX)/src/WRF/run/LANDUSE.TBL LANDUSE.TBL
+
+MPTABLE.TBL: $(WRF_PREFIX)/src/WRF/run/MPTABLE.TBL
+	cp $(WRF_PREFIX)/src/WRF/run/MPTABLE.TBL MPTABLE.TBL
+
+SOILPARM.TBL: $(WRF_PREFIX)/src/WRF/run/SOILPARM.TBL
+	cp $(WRF_PREFIX)/src/WRF/run/SOILPARM.TBL SOILPARM.TBL
+
+URBPARM.TBL: $(WRF_PREFIX)/src/WRF/run/URBPARM.TBL
+	cp $(WRF_PREFIX)/src/WRF/run/URBPARM.TBL URBPARM.TBL
+
+URBPARM_UZE.TBL: $(WRF_PREFIX)/src/WRF/run/URBPARM_UZE.TBL
+	cp $(WRF_PREFIX)/src/WRF/run/URBPARM_UZE.TBL URBPARM_UZE.TBL
+
+VEGPARM.TBL: $(WRF_PREFIX)/src/WRF/run/VEGPARM.TBL
+	cp $(WRF_PREFIX)/src/WRF/run/VEGPARM.TBL VEGPARM.TBL
+
+ozone.formatted: $(WRF_PREFIX)/src/WRF/run/ozone.formatted
+	cp $(WRF_PREFIX)/src/WRF/run/ozone.formatted ozone.formatted
+
+ozone_lat.formatted: $(WRF_PREFIX)/src/WRF/run/ozone_lat.formatted
+	cp $(WRF_PREFIX)/src/WRF/run/ozone_lat.formatted ozone_lat.formatted
+
+ozone_plev.formatted: $(WRF_PREFIX)/src/WRF/run/ozone_plev.formatted
+	cp $(WRF_PREFIX)/src/WRF/run/ozone_plev.formatted ozone_plev.formatted
+
+RRTM_DATA: $(WRF_PREFIX)/src/WRF/run/RRTM_DATA
+	cp $(WRF_PREFIX)/src/WRF/run/RRTM_DATA RRTM_DATA
+
+RRTM_DATA_DBL: $(WRF_PREFIX)/src/WRF/run/RRTM_DATA_DBL
+	cp $(WRF_PREFIX)/src/WRF/run/RRTM_DATA_DBL RRTM_DATA_DBL
+
+RRTMG_LW_DATA: $(WRF_PREFIX)/src/WRF/run/RRTMG_LW_DATA
+	cp $(WRF_PREFIX)/src/WRF/run/RRTMG_LW_DATA RRTMG_LW_DATA
+
+RRTMG_LW_DATA_DBL: $(WRF_PREFIX)/src/WRF/run/RRTMG_LW_DATA_DBL
+	cp $(WRF_PREFIX)/src/WRF/run/RRTMG_LW_DATA_DBL RRTMG_LW_DATA_DBL
+
+RRTMG_SW_DATA: $(WRF_PREFIX)/src/WRF/run/RRTMG_SW_DATA
+	cp $(WRF_PREFIX)/src/WRF/run/RRTMG_SW_DATA RRTMG_SW_DATA
+
+RRTMG_SW_DATA_DBL: $(WRF_PREFIX)/src/WRF/run/RRTMG_SW_DATA_DBL
+	cp $(WRF_PREFIX)/src/WRF/run/RRTMG_SW_DATA_DBL RRTMG_SW_DATA_DBL
+
+RRTMG_LW_DATA: $(WRF_PREFIX)/src/WRF/run/RRTMG_LW_DATA
+	cp $(WRF_PREFIX)/src/WRF/run/RRTMG_LW_DATA RRTMG_LW_DATA
+
+RRTMG_LW_DATA_DBL: $(WRF_PREFIX)/src/WRF/run/RRTMG_LW_DATA_DBL
+	cp $(WRF_PREFIX)/src/WRF/run/RRTMG_LW_DATA_DBL RRTMG_LW_DATA_DBL
+	
+RRTMG_SW_DATA: $(WRF_PREFIX)/src/WRF/run/RRTMG_SW_DATA
+	cp $(WRF_PREFIX)/src/WRF/run/RRTMG_SW_DATA RRTMG_SW_DATA
+	
+RRTMG_SW_DATA_DBL: $(WRF_PREFIX)/src/WRF/run/RRTMG_SW_DATA_DBL
+	cp $(WRF_PREFIX)/src/WRF/run/RRTMG_SW_DATA_DBL RRTMG_SW_DATA_DBL
+	
+CAMtr_volume_mixing_ratio: $(WRF_PREFIX)/src/WRF/run/CAMtr_volume_mixing_ratio
+	cp $(WRF_PREFIX)/src/WRF/run/CAMtr_volume_mixing_ratio CAMtr_volume_mixing_ratio
+	
+CAMtr_volume_mixing_ratio.SSP245: $(WRF_PREFIX)/src/WRF/run/CAMtr_volume_mixing_ratio.SSP245
+	cp $(WRF_PREFIX)/src/WRF/run/CAMtr_volume_mixing_ratio.SSP245 CAMtr_volume_mixing_ratio.SSP245
+	
+p3_lookupTable_1.dat-v5.4_2momI: $(WRF_PREFIX)/src/WRF/run/p3_lookupTable_1.dat-v5.4_2momI
+	cp $(WRF_PREFIX)/src/WRF/run/p3_lookupTable_1.dat-v5.4_2momI p3_lookupTable_1.dat-v5.4_2momI
+	
+p3_lookupTable_1.dat-v5.4_3momI: $(WRF_PREFIX)/src/WRF/run/p3_lookupTable_1.dat-v5.4_3momI
+	cp $(WRF_PREFIX)/src/WRF/run/p3_lookupTable_1.dat-v5.4_3momI p3_lookupTable_1.dat-v5.4_3momI
+	
+p3_lookupTable_2.dat-v5.3: $(WRF_PREFIX)/src/WRF/run/p3_lookupTable_2.dat-v5.3
+	cp $(WRF_PREFIX)/src/WRF/run/p3_lookupTable_2.dat-v5.3 p3_lookupTable_2.dat-v5.3
+
+	
+##
+

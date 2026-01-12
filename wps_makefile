@@ -1,0 +1,50 @@
+##
+## Copy the necessary TBL files for geogrid/metgrid/ungrib/link_grib.csh into this
+## working directory.
+##
+
+# These are the symbolic links we need set:
+TARGETS		= GEOGRID.TBL METGRID.TBL Vtable link_grib.csh
+
+# This is the extension on the original GEOGRID.<EXT> file we want
+# to copy; you can set in the environment or on the "make" command
+# line, too, e.g. "make GEOGRID_EXT=TBL"
+GEOGRID_EXT	?= TBL
+
+# This is the extension on the original METGRID.<EXT> file we want
+# to copy; you can set in the environment or on the "make" command
+# line, too, e.g. "make METGRID_EXT=TBL"
+METGRID_EXT     ?= TBL
+
+# This is the Vtable extension we desire; you can set in the environment
+# or on the "make" command line, too, e.g. "make VTABLE_EXT=GOOFY"
+VTABLE_EXT	?= GFS
+
+##
+## The rest of this should not need to be touched
+##
+
+# Autodiscover the install prefix if not set:
+ifndef WRF_PREFIX
+    WRF_PREFIX	= $(shell realpath $(join $(dir $(shell which geogrid.exe)),".."))
+endif
+
+.PHONY: all clean
+
+all: $(TARGETS)
+
+clean:
+	rm -f $(TARGETS)
+
+GEOGRID.TBL: $(WRF_PREFIX)/src/WPS/geogrid/GEOGRID.$(GEOGRID_EXT)
+	cp $(WRF_PREFIX)/src/WPS/geogrid/GEOGRID.$(GEOGRID_EXT) GEOGRID.TBL
+
+METGRID.TBL: $(WRF_PREFIX)/src/WPS/metgrid/METGRID.$(METGRID_EXT)
+	cp $(WRF_PREFIX)/src/WPS/metgrid/METGRID.$(METGRID_EXT) METGRID.TBL
+
+Vtable: $(WRF_PREFIX)/src/WPS/ungrib/Variable_Tables/Vtable.$(VTABLE_EXT)
+	cp $(WRF_PREFIX)/src/WPS/ungrib/Variable_Tables/Vtable.$(VTABLE_EXT) Vtable
+
+link_grib.csh: $(WRF_PREFIX)/src/WPS/link_grib.csh
+	cp $(WRF_PREFIX)/src/WPS/link_grib.csh link_grib.csh
+

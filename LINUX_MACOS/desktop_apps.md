@@ -6,6 +6,7 @@
 3. [MetView](#metview)
 4. [Panopoly](#panapoly)
 5. [QGIS](#qgis)
+6. [IDV](#idv)
 
 ## Vapor
 

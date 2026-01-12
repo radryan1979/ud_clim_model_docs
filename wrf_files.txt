@@ -1,0 +1,19 @@
+
+-rw-r--r-- 1 reagan regc  42K Dec 20 15:04 CAMtr_volume_mixing_ratio
+-rw-r--r-- 1 reagan regc  42K Dec 20 15:04 CAMtr_volume_mixing_ratio.SSP245
+-rw-r--r-- 1 reagan regc 531K Dec 20 14:15 ozone.formatted
+-rw-r--r-- 1 reagan regc  536 Dec 20 14:15 ozone_lat.formatted
+-rw-r--r-- 1 reagan regc  708 Dec 20 14:15 ozone_plev.formatted
+-rw-r--r-- 1 reagan regc 1.6M Dec 21 11:33 p3_lookupTable_1.dat-v5.4_2momI
+-rw-r--r-- 1 reagan regc  18M Dec 21 11:33 p3_lookupTable_1.dat-v5.4_3momI
+-rw-r--r-- 1 reagan regc  15M Dec 21 11:33 p3_lookupTable_2.dat-v5.3
+-rwxr-xr-x 1 reagan regc 9.5K Dec 22 14:56 pwrfmpi.qs
+-rw-r--r-- 1 reagan regc 828K Dec 20 14:15 RRTMG_LW_DATA
+-rw-r--r-- 1 reagan regc 1.7M Dec 20 14:15 RRTMG_LW_DATA_DBL
+-rw-r--r-- 1 reagan regc 665K Dec 20 14:15 RRTMG_SW_DATA
+-rw-r--r-- 1 reagan regc 1.3M Dec 20 14:15 RRTMG_SW_DATA_DBL
+-rw-r--r-- 1 reagan regc 6.5K Dec 20 14:15 SOILPARM.TBL
+-rw-r--r-- 1 reagan regc  12K Dec 20 14:15 URBPARM.TBL
+-rw-r--r-- 1 reagan regc 8.4K Dec 20 14:15 URBPARM_UZE.TBL
+-rw-r--r-- 1 reagan regc  23K Dec 20 14:15 VEGPARM.TBL
+-rwxr-xr-x 1 reagan regc 9.4K Dec 20 14:15 wrfmpi.qs
