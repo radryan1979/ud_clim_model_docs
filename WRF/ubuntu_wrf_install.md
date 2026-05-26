@@ -47,7 +47,6 @@ Make sure the m4 Macro Processor is installed
 sudo apt install m4
 ```
 
-<<<<<<< HEAD
 Make sure Tcl installed
 =======
 Make sure tsch installed. You may have to add the universe repository first if you get an unable to locate package message.
@@ -55,7 +54,7 @@ Make sure tsch installed. You may have to add the universe repository first if y
 sudo add-apt-repository universe
 ```
 Follow the default prompts. Then run the line below.
->>>>>>> c3fe117 (Updated ubuntu instructions.)
+
 ```bash
 sudo apt install tcl
 ```
@@ -314,7 +313,7 @@ mkdir -p "$WRF_BIN"
 install --target-directory="$WRF_BIN" --mode=0775 main/*.exe
 ```
 
-## Now build WRF parallel
+## Now build WRF parallel (OpenMP)
 
 For configure choose option **32** and nesting **1**
 
