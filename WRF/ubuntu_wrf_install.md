@@ -329,7 +329,7 @@ for exe in main/*.exe; do
   # Install each exe to WRF_BIN with the prefix "mpi_" on it
   # to differentiate from the serial variants:
   WRF_ROOT="$(echo $exe | sed -e 's/main\///')"
-  install --mode=0775 "$exe" "${WRF_BIN}/mpi_${WRF_ROOT}"
+  install --mode=0775 "$exe" "${WRF_BIN}/omp_${WRF_ROOT}"
 done
 ```
 
