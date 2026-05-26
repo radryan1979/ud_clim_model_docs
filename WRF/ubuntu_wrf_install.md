@@ -47,7 +47,7 @@ Make sure the m4 Macro Processor is installed
 sudo apt install m4
 ```
 
-Make sure Tcl installed
+Make sure Tcsh installed
 =======
 Make sure tsch installed. You may have to add the universe repository first if you get an unable to locate package message.
 ```bash
@@ -344,7 +344,7 @@ git checkout tags/v#.#.#
 
 ### Build WPS Serial
 
-Choose option **17**
+Choose option **1**
 
 ```bash
 ./configure
@@ -354,7 +354,7 @@ install --target-directory="$WRF_BIN" --mode=0775 *.exe
 
 ### Build WPS parallel
 
-Choose option **19**
+Choose option **3**
 
 ```bash
 ./clean -a
@@ -363,7 +363,7 @@ Choose option **19**
 for exe in *.exe; do
 #Install each exe to WRF_BIN with the prefix "mpi_" on it
 #to differentiate from the serial variants:
-  install --mode=0775 "$exe" "${WRF_BIN}/mpi_${exe}"
+  install --mode=0775 "$exe" "${WRF_BIN}/omp_${exe}"
 done
 ```
 
