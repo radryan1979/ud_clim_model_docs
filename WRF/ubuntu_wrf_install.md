@@ -8,13 +8,16 @@ Before you can begin, you'll need to have some basic packages installed. We'll b
 - gcc
 - g++
 - gfortran
+- m4
+- tsch
+- build-essential
 
-First install the build-essential packages that will include the GNU compilers, Make, and some dev libraries.
+First install the build-essential packages that will include the GNU compilers, Make, and some dev libraries. Do not go higher than version 13.4, otherwise nothing will compile properly because of C standard changes.
 
 ```bash
 sudo apt update
 sudo apt upgrade
-sudo apt install build-essential
+sudo apt install gcc-13 g++-13 gfortran-13
 ```
 
 Now check that your compilers have been installed.
@@ -38,14 +41,21 @@ sudo apt update
 sudo apt install perl
 ```
 
-
 Make sure the m4 Macro Processor is installed
 
 ```bash
 sudo apt install m4
 ```
 
+<<<<<<< HEAD
 Make sure Tcl installed
+=======
+Make sure tsch installed. You may have to add the universe repository first if you get an unable to locate package message.
+```bash
+sudo add-apt-repository universe
+```
+Follow the default prompts. Then run the line below.
+>>>>>>> c3fe117 (Updated ubuntu instructions.)
 ```bash
 sudo apt install tcl
 ```
@@ -56,54 +66,62 @@ For parallel processing, you'll need to make sure the OpenMP libraries are insta
 sudo apt install libomp-dev
 ```
 
-
-
-
 ## Setting Up Your Environment 
 
 The following commands will set environment variables that WRF and the related libraries will use to find their installation locations and compiler configurations. These are only set for the current session. If you exit your workgrouop and/or logout of Caviness before you complete the install, you'll need to set these again.
 
 If you set them before changing your workgroup, which starts a new shell session, you'll have to set them again, so be sure to change your workgorup immediately after logging in.
 
-### Caviness OpenMPI
-
-You'll need to make sure you activate the OpenMPI package on Caviness before you begin, otherwise you will not be able to compile and/or run WRF.
-
-```bash
-vpkg_require openmpi/4.0.2:intel
-```
-
-You may also want to add this to your bash.rc or bash.profile scripts so it is always loaded.
 
 ### Environment Variables
 
 Copy paste each line into the terminal and press enter to execute it. Be sure to change the first line to match where you want to setup your WRF and make sure the directory has been created.
 
 ```bash
-WRF_PREFIX=$WORKDIR/polarWRF/pWRF_4_5_1
-mkdir -p "$WRF_PREFIX"
+# Sets the directories and flags for WRF 4.5
 
-WRF_SRC="${WORKDIR}/polarWRF/WRF"
+WRF_PREFIX=/home/ryan/cirrus/Modeling/WRF/WRF455
+WRF_DIR=/home/ryan/cirrus/Modeling/WRF/WRF455
+WRF_SRC="${WRF_PREFIX}/src"
 WRF_BIN="${WRF_PREFIX}/bin"
 WRF_INC="${WRF_PREFIX}/include"
 WRF_LIB="${WRF_PREFIX}/lib"
 WRF_LIBRARIES_SRC="${WRF_SRC}/LIBRARIES"
 WRF_TESTS_SRC="${WRF_SRC}/TESTS"
 
-export CC=icc
-export CFLAGS="-xHost"
-export CXX=icpc
-export CXXFLAGS="-xHost"
+# This tells OpenMP how many cores/threads it can use.
+export OMP_NUM_THREADS=8
+
+# Note the flags to prevent new compilers from yelling about poor coding standards
+export CC=gcc
+export CXX=g++
+export CFLAGS=""
 export CPPFLAGS="-I${WRF_INC}"
-export FC=ifort
-export FCFLAGS="-I${WRF_INC} -xHost" 
+export FC=gfortran
+export FCFLAGS="-I${WRF_INC}" 
 export F77="$FC"
 export LDFLAGS="-L${WRF_LIB}"
 export PATH="${WRF_BIN}:$PATH"
-export MPICC="mpicc"
-export MPICXX="mpicxx"
-export MPIFC="mpifort"
+export MPICC=gcc
+export MPICXX=g++
+export MPIFC=gfortran
+
+export LD_LIBRARY_PATH="${WRF_LIB}:${LD_LIBRARY_PATH}"
+export PATH="${WRF_BIN}:${WRF_LIB}:${PATH}"
+export JASPERLIB="${WRF_LIB}"
+export JASPERINC="${WRF_INC}"
+export NETCDF="${WRF_PREFIX}"
+
 ```
+You can make a shell script with the above lines and save it, as you'll need it to setup your environment everytime you run WRF also.
+
+Save the above as a script called `wrf455_env.sh` and then update the permissions to make it executable:
+`chmod +x wrf455_env.sh`
+
+Then, once you open a new terminal, you can source this script and it will set all of the environment variables:
+`source wrf455_env.sh`
+
+Be sure to source this before continuing on the steps below.
 
 ## Support Libraries Installation
 
@@ -283,14 +301,11 @@ git tag -l ##lists the releases
 git checkout tags/v#.#.#
 ```
 
-**need to add env variable exports here**
-not sure what though?
-
 ## Now build WRF serial
 
 Note - if you see errors during the compile, recompile without the `-j 4` option, as multiprocessor compiling may cause issues.
 
-For configure choose option **64** and nesting **0**
+For configure choose option **32** and nesting **0**
 
 ```bash
 ./configure
@@ -301,46 +316,11 @@ install --target-directory="$WRF_BIN" --mode=0775 main/*.exe
 
 ## Now build WRF parallel
 
-For configure choose option **66** and nesting **1**
+For configure choose option **32** and nesting **1**
 
 ```bash
 ./clean -a 
 ./configure
-```
-
-**Patch the config file for MPI**
-
-If this gives an error, then you may have to update the configure file manually.
-
-```bash
-patch -p1 <<EOT
---- A/configure.wrf 2020-12-10 14:06:01.907649095 -0500
-+++ B/configure.wrf 2020-12-10 14:40:00.791338460 -0500
-@@ -118,8 +118,8 @@
- SFC             =       ifort
- SCC             =       icc
- CCOMP           =       icc
--DM_FC           =       mpif90 -f90=\$(SFC)
--DM_CC           =       mpicc -cc=\$(SCC)
-+DM_FC           =       mpif90
-+DM_CC           =       mpicc
- FC              =       time \$(DM_FC)
- CC              =       \$(DM_CC) -DFSEEKO64_OK 
- LD              =       \$(FC)
-@@ -140,7 +140,7 @@
- BYTESWAPIO      =       -convert big_endian
- RECORDLENGTH    =       -assume byterecl
- FCBASEOPTS_NO_G =       -ip -fp-model precise -w -ftz -align all -fno-alias \$(FORMAT_FREE) \$(BYTESWAPIO) -xHost -fp-model fast=2 -no-heap-arrays -no-prec-div -no-prec-sqrt -fno-common -xCORE-AVX2
--FCBASEOPTS      =       \$(FCBASEOPTS_NO_G) \$(FCDEBUG)
-+FCBASEOPTS      =       \$(FCBASEOPTS_NO_G) \$(FCDEBUG) -assume nocc_omp
- MODULE_SRCH_FLAG =     
- TRADFLAG        =      -traditional-cpp
- CPP             =      /lib/cpp -P -nostdinc
-EOT
-```
-Once the patch is applied to the configure.wrf file, you can compile.
-
-```bash
 ./compile -j 4 em_real
 ```
 
