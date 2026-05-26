@@ -45,9 +45,9 @@ Make sure the m4 Macro Processor is installed
 sudo apt install m4
 ```
 
-Make sure tsch installed
+Make sure Tcl installed
 ```bash
-sudo apt install tsch
+sudo apt install tcl
 ```
 
 For parallel processing, you'll need to make sure the OpenMP libraries are installed:
